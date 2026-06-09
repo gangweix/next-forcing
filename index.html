@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Next Forcing: Causal World Modeling with Multi-Chunk Prediction</title>
+  <meta name="description" content="Project page for Next Forcing, a multi-chunk prediction framework for causal world modeling.">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="top">
+    <section class="hero">
+      <div class="hero-shell">
+        <div class="hero-copy">
+          <h1>Next Forcing: Causal World Modeling with <span class="title-break">Multi-Chunk Prediction</span></h1>
+          <p class="hero-authors">
+            <a href="https://gangweix.github.io/" target="_blank" rel="noopener noreferrer">Gangwei Xu</a>
+            <a href="https://zqh0253.github.io/" target="_blank" rel="noopener noreferrer">Qihang Zhang</a>
+            <a href="https://jiaming-zhou.github.io/" target="_blank" rel="noopener noreferrer">Jiaming Zhou</a>
+            <a href="https://scholar.google.com/citations?user=Hnh87z4AAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Xing Zhu</a>
+            <a href="https://shenyujun.github.io/" target="_blank" rel="noopener noreferrer">Yujun Shen</a>
+            <a href="https://sites.google.com/view/xinyang/home" target="_blank" rel="noopener noreferrer">Xin Yang</a>
+            <a href="https://justimyhxu.github.io/" target="_blank" rel="noopener noreferrer">Yinghao Xu</a>
+          </p>
+          <div class="hero-links" aria-label="Project links">
+            <span class="nav-button disabled" aria-disabled="true">Paper</span>
+            <span class="nav-button disabled" aria-disabled="true">Code (Coming soon)</span>
+            <a class="nav-button" href="#citation">BibTeX</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="feature-section" id="results">
+      <div class="chart-container">
+        <div class="chart-label">Convergence and Success Rate on RoboTwin</div>
+        <figure class="chart-figure">
+          <img src="assets/figures/robotwin-convergence-results.png" alt="Training convergence curves comparing Next Forcing and LingBot-VA.">
+        </figure>
+        <div class="metric-row" aria-label="RoboTwin summary metrics">
+          <div>
+            <strong>2.3x</strong>
+            <span>faster convergence at 50 FPS</span>
+          </div>
+          <div>
+            <strong>94.1 / 93.5%</strong>
+            <span>Clean / Random success rate</span>
+          </div>
+          <div>
+            <strong>2x</strong>
+            <span>inference acceleration</span>
+          </div>
+        </div>
+      </div>
+      <p class="intro-text">
+        We introduce Next Forcing, a multi-chunk prediction framework for causal world modeling. By supervising future video chunks through chained MCP modules, Next Forcing reduces the myopic supervision of autoregressive world models and improves both training convergence and inference efficiency. At inference time, MCP modules predict upcoming chunks in parallel, reducing sequential generation cost and accelerating rollout.
+      </p>
+    </section>
+
+    <section class="feature-section" id="method">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-description">
+        Next Forcing extends causal world modeling from one-step prediction to multi-chunk prediction: chained MCP modules expose the backbone to multiple future chunks during training while keeping generation causal.
+      </p>
+
+      <div class="howitworks-content">
+        <div class="howitworks-subsection">
+          <h3 class="howitworks-subtitle">Multi-chunk prediction</h3>
+          <p class="howitworks-text">
+            The main model denoises the current chunk, while chained MCP modules predict future chunks (next<sup>1</sup>, next<sup>2</sup>, ...) using features from the main model, providing dense temporal supervision during training and enabling parallel chunk prediction at inference.
+          </p>
+          <figure class="method-figure">
+            <img src="assets/figures/next-forcing-method-architecture.png" alt="Architecture diagram of Next Forcing with chained multi-chunk prediction modules.">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="feature-section" id="robotwin-demos">
+      <h2 class="section-title">Video Demos on RoboTwin</h2>
+      <p class="section-description">
+        The first demo shows faster training convergence. The second shows MCP-accelerated inference, where future chunks are predicted in parallel to reduce rollout cost.
+      </p>
+
+      <div class="video-carousel-side" id="robotwin-carousel">
+        <div class="carousel-sidebar" aria-label="RoboTwin video selector">
+          <div class="sidebar-category">
+            <div class="sidebar-category-title">Training</div>
+            <button class="sidebar-thumb active" type="button"
+              data-video-src="assets/videos/robotwin-convergence-comparison.mp4"
+              data-video-poster="assets/posters/robotwin-convergence-comparison.jpg"
+              data-main-title="Training acceleration">
+              <video src="assets/videos/robotwin-convergence-comparison.mp4" autoplay loop muted playsinline preload="metadata"></video>
+              <span class="sidebar-thumb-label">Convergence</span>
+            </button>
+          </div>
+          <div class="sidebar-category">
+            <div class="sidebar-category-title">Inference</div>
+            <button class="sidebar-thumb" type="button"
+              data-video-src="assets/videos/robotwin-inference-acceleration.mp4"
+              data-video-poster="assets/posters/robotwin-inference-acceleration.jpg"
+              data-main-title="Inference acceleration">
+              <video src="assets/videos/robotwin-inference-acceleration.mp4" autoplay loop muted playsinline preload="metadata"></video>
+              <span class="sidebar-thumb-label">Acceleration</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="carousel-main-side">
+          <div class="video-caption" id="robotwin-main-title">Training acceleration</div>
+          <video id="robotwin-main-video" controls muted autoplay loop playsinline preload="metadata" poster="assets/posters/robotwin-convergence-comparison.jpg">
+            <source src="assets/videos/robotwin-convergence-comparison.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <section class="feature-section" id="phyworld">
+      <h2 class="section-title">PhyWorld Benchmark</h2>
+      <p class="section-description">
+        On physical reasoning videos, Next Forcing produces more consistent dynamics than LingBot-VA under the same causal setup.
+      </p>
+      <div class="single-video-container">
+        <video controls muted autoplay loop playsinline preload="metadata" poster="assets/posters/phyworld-benchmark-comparison.jpg">
+          <source src="assets/videos/phyworld-benchmark-comparison.mp4" type="video/mp4">
+        </video>
+      </div>
+    </section>
+
+    <section class="feature-section" id="general-video">
+      <h2 class="section-title">General Video Comparison</h2>
+      <p class="section-description">
+        We evaluate pure video generation after removing the action stream. Next Forcing consistently achieves lower FVD than LingBot-VA throughout training, and the qualitative comparisons below show stronger temporal consistency.
+      </p>
+
+      <div class="chart-container">
+        <div class="chart-label">FVD (&darr;) Across Training Steps</div>
+        <figure class="chart-figure narrow">
+          <img src="assets/figures/general-video-fvd-curves.png" alt="FVD curves on two held-out general video test sets.">
+        </figure>
+      </div>
+
+      <div class="general-comparison-list" id="general-comparison-list" aria-live="polite"></div>
+    </section>
+
+    <section class="feature-section citation-section" id="citation">
+      <h2 class="section-title">Citation</h2>
+      <div class="citation-panel">
+        <pre><code>@article{nextforcing,
+  title={Next Forcing: Causal World Modeling with Multi-Chunk Prediction},
+  author={Gangwei Xu and Qihang Zhang and Jiaming Zhou and Xing Zhu and Yujun Shen and Xin Yang and Yinghao Xu},
+  journal={},
+  year={2026}
+}</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Next Forcing: Causal World Modeling with Multi-Chunk Prediction.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
