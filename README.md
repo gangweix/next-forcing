@@ -1,4 +1,4 @@
-<h1 align="center">Next Forcing<br>Causal World Modeling with Multi-Chunk Prediction</h1>
+<h1 align="center">Next Forcing:<br>Causal World Modeling with Multi-Chunk Prediction</h1>
 
 <p align="center">
   <strong>Gangwei Xu, Qihang Zhang, Jiaming Zhou, Xing Zhu, Yujun Shen, Xin Yang, Yinghao Xu</strong>
@@ -14,7 +14,7 @@
 
 Next Forcing tackles the myopic supervision problem in autoregressive video world models: next-chunk denoising often learns local appearance shortcuts instead of long-range dynamics, especially at high frame rates.
 
-By training lightweight Multi-Chunk Prediction (MCP) modules to predict multiple future chunks, Next Forcing provides denser temporal supervision, achieves faster and more stable convergence across frame rates, sets new state-of-the-art results on RoboTwin, and enables `2x` inference acceleration via parallel chunk generation. Code will be released upon paper acceptance.
+By training lightweight Multi-Chunk Prediction (MCP) modules to predict multiple future chunks, Next Forcing provides denser temporal supervision, achieves faster and more stable convergence across frame rates, sets new state-of-the-art results on RoboTwin, and enables `2x` inference acceleration via parallel chunk generation.
 
 ## Highlights
 
