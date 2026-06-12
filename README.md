@@ -1,4 +1,4 @@
-<h1 align="center">Next Forcing: Causal World Modeling with Multi-Chunk Prediction</h1>
+<h1 align="center">Next Forcing<br>Causal World Modeling with Multi-Chunk Prediction</h1>
 
 <p align="center">
   <strong>Gangwei Xu, Qihang Zhang, Jiaming Zhou, Xing Zhu, Yujun Shen, Xin Yang, Yinghao Xu</strong>
@@ -12,19 +12,15 @@
 
 ## Overview
 
-Next Forcing is a multi-chunk prediction framework for causal world modeling. Standard autoregressive video world models are trained with teacher-forced next-chunk denoising, which can become shortcut-prone: adjacent chunks are visually similar, especially at high frame rates, so the model can reduce loss by copying local appearance instead of learning long-range dynamics.
+Next Forcing tackles the myopic supervision problem in autoregressive video world models: next-chunk denoising often learns local appearance shortcuts instead of long-range dynamics, especially at high frame rates.
 
-Next Forcing addresses this myopic supervision by adding lightweight Multi-Chunk Prediction (MCP) modules that predict multiple future video chunks, such as `next^1`, `next^2`, and `next^3`, alongside the main model. The MCP modules form a causal prediction chain and inject dense temporal supervision back into the main world model. At inference time, the same MCP modules can be retained to predict the next video chunk in parallel with the current one, enabling faster rollout.
-
-This repository currently hosts the project page and visual assets. Code will be released upon paper acceptance.
+By training lightweight Multi-Chunk Prediction (MCP) modules to predict multiple future chunks, Next Forcing provides denser temporal supervision, achieves faster and more stable convergence across frame rates, sets new state-of-the-art results on RoboTwin, and enables `2x` inference acceleration via parallel chunk generation. Code will be released upon paper acceptance.
 
 ## Highlights
 
-- **Multi-chunk prediction objective:** supervises multiple future horizons instead of only the current chunk.
-- **Causal MCP chain:** near-future MCP predictions inform farther-future predictions while preserving causality.
-- **Multi-layer feature fusion:** MCP modules consume intermediate representations from several backbone layers, improving gradient flow into the main model.
-- **Zero-overhead deployment option:** discard MCP modules at inference and keep the improved main model.
-- **Parallel chunk generation option:** retain the depth-1 MCP module to generate the next chunk in parallel and obtain `2x` inference acceleration.
+- **Multi-Chunk Prediction (MCP):** auxiliary modules predict `next^1`, `next^2`, and `next^3` chunks to provide long-range temporal supervision beyond the current chunk.
+- **Faster and stable training:** Next Forcing converges faster and reaches higher success rates across frame rates, with the strongest gains at high FPS where appearance shortcuts are most severe.
+- **LLM-style inference acceleration:** the MCP module can be retained at inference to predict the next chunk in parallel with the current chunk, similar in spirit to parallel/speculative decoding in LLMs.
 
 ## Method
 
@@ -32,7 +28,7 @@ This repository currently hosts the project page and visual assets. Code will be
   <img src="assets/figures/next-forcing-method-architecture.png" alt="Next Forcing method architecture" width="95%">
 </p>
 
-During training, the main model denoises the current chunk as in standard teacher forcing. In parallel, three auxiliary MCP modules denoise future shifted targets. The modules are lightweight transformer blocks initialized from the main model and conditioned on fused intermediate features from the backbone. A higher MCP timestep shift encourages the auxiliary modules to rely on the main model's temporal representations rather than solving the future denoising task independently.
+During training, the main model denoises the current chunk, while lightweight MCP modules predict multiple future chunks through a causal chain. These future prediction losses provide dense temporal supervision to the backbone and encourage the model to learn long-range dynamics instead of local appearance shortcuts.
 
 The same trained checkpoint supports two inference modes:
 
@@ -41,45 +37,67 @@ The same trained checkpoint supports two inference modes:
 
 ## Results
 
-### RoboTwin
-
-Next Forcing achieves the best average success rate on the RoboTwin benchmark across 50 bimanual manipulation tasks.
-
-| Method | Clean | Random |
-| --- | ---: | ---: |
-| X-VLA | 72.9 | 72.8 |
-| pi_0 | 65.9 | 58.4 |
-| pi_0.5 | 82.7 | 76.8 |
-| Motus | 88.7 | 87.0 |
-| Being-H0.7 | 90.2 | 89.6 |
-| Fast-WAM | 91.9 | 91.8 |
-| LingBot-VA | 92.9 | 91.5 |
-| **Next Forcing** | **94.1** | **93.5** |
+### Training Convergence
 
 <p align="center">
   <img src="assets/figures/robotwin-convergence-results.png" alt="RoboTwin convergence comparison" width="95%">
 </p>
 
-At `50 fps`, Next Forcing shows the largest gains: at `5k` training steps it reaches `70.2 / 61.6%` success on Clean / Random, compared with `45.5 / 31.9%` for LingBot-VA. It matches LingBot-VA's `45k`-step Random accuracy at only `20k` steps, corresponding to `2.3x` faster convergence.
+Next Forcing converges faster than LingBot-VA across frame rates. The gain is most pronounced at `50 fps`: on the Random setting, Next Forcing reaches LingBot-VA's `45k`-step accuracy at only `20k` steps, corresponding to `2.3x` faster convergence.
+
+### Final RoboTwin Accuracy
+
+Next Forcing achieves the best average success rate on the RoboTwin benchmark across 50 bimanual manipulation tasks.
+
+| Setting | X-VLA | pi_0 | pi_0.5 | Motus | Being-H0.7 | Fast-WAM | LingBot-VA | **Next Forcing** |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Clean | 72.9 | 65.9 | 82.7 | 88.7 | 90.2 | 91.9 | 92.9 | **94.1** |
+| Random | 72.8 | 58.4 | 76.8 | 87.0 | 89.6 | 91.8 | 91.5 | **93.5** |
 
 ### Inference Acceleration
 
-MCP-accelerated inference predicts the next video chunk in parallel with the current chunk. It preserves comparable accuracy while reducing sequential video denoising cost.
+MCP-accelerated inference predicts the next video chunk in parallel with the current chunk, reducing sequential video denoising cost while preserving comparable accuracy.
 
-| FPS | Standard Clean | Standard Random | MCP-acc. Clean | MCP-acc. Random |
-| ---: | ---: | ---: | ---: | ---: |
-| 12 | 94.1 | 93.5 | 93.5 | 90.6 |
-| 25 | 92.6 | 91.4 | 91.0 | 89.8 |
-| 50 | 91.8 | 90.5 | 92.2 | 91.3 |
+| Inference Mode | 12 fps Clean | 12 fps Random | 25 fps Clean | 25 fps Random | 50 fps Clean | 50 fps Random |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Standard | 94.1 | 93.5 | 92.6 | 91.4 | 91.8 | 90.5 |
+| MCP-accelerated (`2x`) | 93.5 | 90.6 | 91.0 | 89.8 | 92.2 | 91.3 |
 
 ### PhyWorld
 
 On PhyWorld, Next Forcing improves both video quality and physical consistency over LingBot-VA.
 
-| Method | OOT FVD | IT FVD | OOT Abnormal Ratio | IT Abnormal Ratio |
-| --- | ---: | ---: | ---: | ---: |
-| LingBot-VA | 5.3 | 3.5 | 12% | 3% |
-| **Next Forcing** | **4.7** | **3.2** | **8%** | **2%** |
+<table>
+  <thead>
+    <tr>
+      <th rowspan="2">Method</th>
+      <th colspan="2">FVD (&darr;)</th>
+      <th colspan="2">Abnormal Ratio (&darr;)</th>
+    </tr>
+    <tr>
+      <th>OOT</th>
+      <th>IT</th>
+      <th>OOT</th>
+      <th>IT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>LingBot-VA</td>
+      <td align="right">5.3</td>
+      <td align="right">3.5</td>
+      <td align="right">12%</td>
+      <td align="right">3%</td>
+    </tr>
+    <tr>
+      <td><strong>Next Forcing</strong></td>
+      <td align="right"><strong>4.7</strong></td>
+      <td align="right"><strong>3.2</strong></td>
+      <td align="right"><strong>8%</strong></td>
+      <td align="right"><strong>2%</strong></td>
+    </tr>
+  </tbody>
+</table>
 
 ### General Video Pretraining
 
@@ -108,4 +126,3 @@ At `50k` training steps, Next Forcing reduces FVD by `58%` on Test Set 1 (`94` v
   year={2026}
 }
 ```
-
