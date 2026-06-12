@@ -53,7 +53,7 @@
         </div>
       </div>
       <p class="intro-text">
-        We introduce Next Forcing, a multi-chunk prediction framework for causal world modeling. By supervising future video chunks through chained MCP modules, Next Forcing reduces the myopic supervision of autoregressive world models and improves both training convergence and inference efficiency. At inference time, MCP modules predict upcoming chunks in parallel, reducing sequential generation cost and accelerating rollout.
+        We introduce Next Forcing, a multi-chunk prediction framework for causal world modeling. It tackles the myopic supervision problem in autoregressive video world models, where next-chunk denoising often learns local appearance shortcuts instead of long-range dynamics, especially at high frame rates. By supervising future video chunks through chained MCP modules, Next Forcing improves training convergence and enables parallel chunk prediction at inference, reducing sequential generation cost and accelerating rollout.
       </p>
     </section>
 
