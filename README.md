@@ -1,8 +1,20 @@
 <h1 align="center">Next Forcing:<br>Causal World Modeling with Multi-Chunk Prediction</h1>
 
 <p align="center">
-  <strong>Gangwei Xu, Qihang Zhang, Jiaming Zhou, Xing Zhu, Yujun Shen, Xin Yang, Yinghao Xu</strong>
-</p>
+  <strong>
+    Gangwei Xu<sup>1,2</sup> &nbsp;
+    Qihang Zhang<sup>1</sup> &nbsp;
+    Jiaming Zhou<sup>1,4</sup> &nbsp;
+    Xing Zhu<sup>1</sup>
+    Yujun Shen<sup>1</sup> &nbsp;
+    Xin Yang<sup>2</sup> &nbsp;
+    Yinghao Xu<sup>3,1</sup>
+  </strong>
+    <sup>1</sup>Robbyant, Ant Group &nbsp;
+    <sup>2</sup>HUST &nbsp;
+    <sup>3</sup>HKUST &nbsp;
+    <sup>4</sup>HKUST (GZ)
+  </p>
 
 <p align="center">
   <a href="https://gangweix.github.io/next-forcing/"><img src="https://img.shields.io/badge/Project-Page-blue" alt="Project page"></a>
