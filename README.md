@@ -10,11 +10,12 @@
     Xin Yang<sup>2</sup> &nbsp;
     Yinghao Xu<sup>3,1</sup>
   </strong>
-    <sup>1</sup>Robbyant, Ant Group &nbsp;
-    <sup>2</sup>HUST &nbsp;
-    <sup>3</sup>HKUST &nbsp;
-    <sup>4</sup>HKUST (GZ)
-  </p>
+  <br>
+  <sup>1</sup>Robbyant, Ant Group &nbsp;
+  <sup>2</sup>HUST &nbsp;
+  <sup>3</sup>HKUST &nbsp;
+  <sup>4</sup>HKUST (GZ)
+</p>
 
 <p align="center">
   <a href="https://gangweix.github.io/next-forcing/"><img src="https://img.shields.io/badge/Project-Page-blue" alt="Project page"></a>
