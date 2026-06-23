@@ -132,10 +132,10 @@ At `50k` training steps, Next Forcing reduces FVD by `58%` on Test Set 1 (`94` v
 ## Citation
 
 ```bibtex
-@article{nextforcing,
+@article{xu2026next,
   title={Next Forcing: Causal World Modeling with Multi-Chunk Prediction},
-  author={Gangwei Xu and Qihang Zhang and Jiaming Zhou and Xing Zhu and Yujun Shen and Xin Yang and Yinghao Xu},
-  journal={},
+  author={Xu, Gangwei and Zhang, Qihang and Zhou, Jiaming and Zhu, Xing and Shen, Yujun and Yang, Xin and Xu, Yinghao},
+  journal={arXiv preprint arXiv:2606.11187},
   year={2026}
 }
 ```
