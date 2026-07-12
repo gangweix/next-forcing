@@ -38,7 +38,7 @@ By training lightweight Multi-Chunk Prediction (MCP) modules to predict multiple
 ## Method
 
 <p align="center">
-  <img src="assets/figures/next-forcing-method-architecture.png" alt="Next Forcing method architecture" width="95%">
+  <img src="assets/figures/next-forcing.png" alt="Next Forcing method architecture" width="95%">
 </p>
 
 During training, the main model denoises the current chunk, while lightweight MCP modules predict multiple future chunks through a causal chain. These future prediction losses provide dense temporal supervision to the backbone and encourage the model to learn long-range dynamics instead of local appearance shortcuts.
