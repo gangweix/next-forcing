@@ -5,7 +5,7 @@
     Gangwei Xu<sup>1,2</sup> &nbsp;
     Qihang Zhang<sup>1</sup> &nbsp;
     Jiaming Zhou<sup>1,4</sup> &nbsp;
-    Xing Zhu<sup>1</sup>
+    Xing Zhu<sup>1</sup> &nbsp;
     Yujun Shen<sup>1</sup> &nbsp;
     Xin Yang<sup>2</sup> &nbsp;
     Yinghao Xu<sup>3,1</sup>
