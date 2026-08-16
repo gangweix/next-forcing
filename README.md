@@ -331,22 +331,14 @@ docs/            Project page sources published at gangweix.github.io/next-forci
 
 - [x] Project page and demos
 - [x] Paper
-- [x] Training and zero-overhead inference code
+- [x] Training and inference code
 - [x] Base checkpoint ([`next-forcing-base`](https://huggingface.co/gangweix/next-forcing-base))
 - [x] RoboTwin post-trained checkpoint ([`next-forcing-posttrain-robotwin`](https://huggingface.co/gangweix/next-forcing-posttrain-robotwin))
-- [ ] MCP-accelerated (`2x`) inference code
 
 ## Acknowledgment
 
 Next Forcing is developed on top of the [LingBot-VA](https://github.com/Robbyant/lingbot-va)
-codebase. Please retain the upstream LingBot-VA attribution and license when
-redistributing this project. `wan_va/utils/Simple_Remote_Infer` is vendored from
-an upstream remote-inference utility; see the accompanying `LEGAL.md` in that
-directory. This project is released under the [Apache License 2.0](LICENSE.txt).
-
-We also thank the [RoboTwin](https://github.com/RoboTwin-Platform/RoboTwin)
-team for the benchmark and simulation platform used in our evaluation.
-
+codebase. 
 ## Citation
 
 ```bibtex
