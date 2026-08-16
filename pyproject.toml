@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "next-forcing"
+version = "0.0.0"
+description = "Next Forcing: Causal World Modeling with Multi-Chunk Prediction"
+authors = [
+    { name = "Robbyant Team", email = "gwxu@hust.edu.cn" }
+]
+license = { file = "LICENSE.txt" }
+readme = "README.md"
+requires-python = ">=3.10,<4.0"
+dependencies = [
+    "torch==2.9.0",
+    "torchvision==0.24.0",
+    "diffusers==0.36.0",
+    "transformers==4.55.2",
+    "tokenizers>=0.21.4",
+    "accelerate",
+    "einops",
+    "safetensors",
+    "tqdm",
+    "imageio[ffmpeg]",
+    "easydict",
+    "flash-attn",
+    "numpy>=1.26.4,<2",
+    "Pillow",
+    "websockets",
+    "msgpack",
+    "ftfy",
+]
+
+[project.optional-dependencies]
+train = [
+    "lerobot==0.3.3",
+    "scipy",
+    "wandb",
+]
+dev = [
+    "pytest",
+    "black",
+    "flake8",
+    "isort",
+    "mypy",
+    "huggingface-hub[cli]"
+]
+
+[project.urls]
+homepage = "https://gangweix.github.io/next-forcing/"
+documentation = "https://gangweix.github.io/next-forcing/"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["wan_va*"]
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+strict = true
