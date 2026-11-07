@@ -1,4 +1,4 @@
-<h1 align="center">Next Forcing:<br>Causal World Modeling with Multi-Chunk Prediction</h1>
+<h1 align="center">Next Forcing:<br>World Action Modeling with Multi-Chunk Prediction</h1>
 
 <p align="center">
   <strong>
@@ -343,7 +343,7 @@ codebase.
 
 ```bibtex
 @article{xu2026next,
-  title={Next Forcing: Causal World Modeling with Multi-Chunk Prediction},
+  title={Next Forcing: World Action Modeling with Multi-Chunk Prediction},
   author={Xu, Gangwei and Zhang, Qihang and Zhou, Jiaming and Zhu, Xing and Shen, Yujun and Yang, Xin and Xu, Yinghao},
   journal={arXiv preprint arXiv:2606.11187},
   year={2026}
